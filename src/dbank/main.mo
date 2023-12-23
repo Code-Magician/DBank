@@ -1,14 +1,21 @@
 import Debug "mo:base/Debug";
 
 actor DBank {
-  var first = 200;  // Defining a variable.
-  first := 200; // Assigning a variable.
+  var currValue = 200;
 
-  let second = 134241;  // Defining a const.
 
-  // # is used to concatenate 2 things of same type.
-  // Debug.print() only takes strings to print.
-  // debug_show() converts the number to string. Nat.to_Text() does the same.
-  Debug.print("Variable : " # debug_show (first)); 
-  Debug.print("Constant : " # debug_show (second));
+  // We can run the below 2 function using the command "dfx canister call <project_name> <func_name> <arguments_to_be_sent_to_func>".
+  // Or we can use candid frontend to call the functions to setup visit { https://internetcomputer.org/docs/current/developer-docs/backend/candid/candid-howto };
+  public func topUp(amount : Nat) {
+    currValue += amount;
+
+    Debug.print(debug_show (currValue));
+  };
+
+  // if else in motoko are expressions not statements.
+  public func withdraw(amount : Nat) {
+    currValue -= if (currValue >= amount) { amount } else { currValue };
+
+    Debug.print(debug_show(currValue));
+  };
 };
