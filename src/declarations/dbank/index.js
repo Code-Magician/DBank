@@ -13,7 +13,7 @@ export const canisterId = process.env.DBANK_CANISTER_ID;
  * @return {import("@dfinity/agent").ActorSubclass<import("./dbank.did.js")._SERVICE>}
  */
  export const createActor = (canisterId, options) => {
-  const agent = new HttpAgent({ ...options?.agentOptions });
+  const agent = new HttpAgent({ ...options?.agentOptions, verifyQuerySignatures: false });
   
   // Fetch root key for certificate validation during development
   if(process.env.NODE_ENV !== "production") {
